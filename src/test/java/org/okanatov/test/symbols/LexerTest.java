@@ -10,26 +10,26 @@ public class LexerTest {
     @Test
     public void testScan() throws IOException {
         Lexer lexer = new Lexer("{ int x; char y; { bool y; x; y; } x; y; }");
-        assertEquals("{", lexer.scan());
-        assertEquals("int", lexer.scan());
-        assertEquals("x", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("char", lexer.scan());
-        assertEquals("y", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("{", lexer.scan());
-        assertEquals("bool", lexer.scan());
-        assertEquals("y", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("x", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("y", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("}", lexer.scan());
-        assertEquals("x", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("y", lexer.scan());
-        assertEquals(";", lexer.scan());
-        assertEquals("}", lexer.scan());
+        assertEquals(Tag.LBRACE, lexer.scan().tag);
+        assertEquals(Tag.INT, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.CHAR, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.LBRACE, lexer.scan().tag);
+        assertEquals(Tag.BOOL, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.RBRACE, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.ID, lexer.scan().tag);
+        assertEquals(Tag.SEMICOLON, lexer.scan().tag);
+        assertEquals(Tag.RBRACE, lexer.scan().tag);
     }
 }
