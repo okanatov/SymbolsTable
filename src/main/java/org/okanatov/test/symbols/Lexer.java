@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public class Lexer {
     private Reader reader;
-    private char peek = ' ';
+    private int peek = ' ';
     private Hashtable<String, Word> words;
 
     private void reserve(Word word) {
@@ -24,8 +24,10 @@ public class Lexer {
     }
 
     public Token scan() throws IOException {
-        for (; ; peek = (char) reader.read()) {
-            if (peek == ' ' || peek == '\t')
+        for (; ; peek = reader.read()) {
+            if (peek == -1)
+                return null;
+            else if (peek == ' ' || peek == '\t')
                 continue;
             else
                 break;
@@ -34,8 +36,8 @@ public class Lexer {
         if (Character.isLetter(peek)) {
             StringBuffer b = new StringBuffer();
             do {
-                b.append(peek);
-                peek = (char) reader.read();
+                b.append((char) peek);
+                peek = reader.read();
             } while (Character.isLetterOrDigit(peek));
 
             String s = b.toString();
@@ -55,6 +57,6 @@ public class Lexer {
             return new Token(Tag.SEMICOLON);
         }
 
-        return null;
+        throw new Error("Lexer error: unknown symbol");
     }
 }
